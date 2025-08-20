@@ -1,0 +1,21 @@
+# Node modules (for frontend, backend, dashboard)
+frontend/node_modules/
+backend/node_modules/
+dashboard/node_modules/
+
+# Build outputs
+frontend/build/
+frontend/.next/
+dashboard/build/
+dashboard/.next/
+
+# Logs
+*.log
+.hintrc
+
+
+# Env files
+frontend/.env
+backend/.env
+dashboard/.env
+
