@@ -33,23 +33,14 @@ function Signup() {
     }
 
     try {
-      // const { data } = await axios.post(
-      //   "https://zerodha-clone-fnnn.onrender.com/api/signup",
-      //   { email, username, password },
-      //   {
-      //     withCredentials: true,
-      //     headers: { "Content-Type": "application/json" },
-      //   }
-      // );
-
       const { data } = await axios.post(
-  `${import.meta.env.VITE_API_URL}/api/signup`,
-  { email, username, password },
-  {
-    withCredentials: true,
-    headers: { "Content-Type": "application/json" },
-  }
-);
+        "https://zerodha-clone-fnnn.onrender.com/api/signup",
+        { email, username, password },
+        {
+          withCredentials: true,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
       const { success, message, redirectTo } = data;
 
