@@ -202,7 +202,7 @@ function Signup() {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:3001/api/signup",
+        "https://zerodha-clone-fnnn.onrender.com/api/signup",
         { email, username, password },
         {
           withCredentials: true,
@@ -243,58 +243,7 @@ function Signup() {
         </p>
       </div>
 
-      {/* Signup Form */}
-      {/* <div className="d-flex justify-content-center" style={{ marginBottom: "5.5rem" }}>
-        <img src="media/images/signup.png" style={{ width: "45%", paddingRight: "4rem" }} alt="Signup" />
-        <div style={{ marginLeft: "-1rem" }}>
-          
-          <div className="form_container">
-            <h2 className="pb-2" style={{ width: "fit-content", marginBottom: "1.5rem", borderBottom: "2px solid #424242" }}>
-              Signup Now
-            </h2>
-            <form className="signup-form" onSubmit={handleSubmit}>
-              <div>
-                <label htmlFor="email">Email</label><br />
-                <input
-                  type="email"
-                  name="email"
-                  value={email}
-                  placeholder="Enter your email"
-                  onChange={handleOnChange}
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="username">Username</label><br />
-                <input
-                  type="text"
-                  name="username"
-                  value={username}
-                  placeholder="Enter your username"
-                  onChange={handleOnChange}
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="password">Password</label><br />
-                <input
-                  type="password"
-                  name="password"
-                  value={password}
-                  placeholder="Enter your password"
-                  onChange={handleOnChange}
-                  required
-                />
-              </div>
-              <button type="submit" className="signup-btn">Submit</button><br />
-              <span style={{ fontSize: "small" }}>
-                Already have an account? <Link to="/login">Login</Link>
-              </span>
-            </form>
-            <ToastContainer />
-          </div>
-        </div>
-      </div> */}
+      
 
 <div className="d-flex flex-column flex-md-row justify-content-center align-items-center mb-5">
   {/* Image First on Mobile */}
@@ -363,57 +312,7 @@ function Signup() {
 </div>
 
 
-      {/* Investment Options */}
-      {/* <h1 className="text-center" style={{ marginTop: "5.5rem", marginBottom: "5.5rem" }}>
-        Investment options with Zerodha demat account
-      </h1>
-      <div className="d-flex justify-content-center" style={{ marginBottom: "5.5rem" }}>
-        {/* Stocks */}
-        {/* <div className="d-flex">
-          <img src="media/images/stocks-acop.svg" style={{ width: "45%" }} alt="Stocks" />
-          <div className="ms-4">
-            <h3>Stocks</h3>
-            <p style={{ width: "200px", lineHeight: "1.7" }}>
-              Invest in all exchange-listed <br /> securities
-            </p>
-          </div>
-        </div>
-        <div style={{ width: "9rem" }}></div> */}
-
-        {/* Mutual Funds */}
-        {/* <div className="d-flex">
-          <img src="media/images/mf-acop.svg" style={{ width: "50%" }} alt="Mutual Funds" />
-          <div className="ms-4">
-            <h3>Mutual funds</h3>
-            <p style={{ width: "250px", lineHeight: "1.7" }}>
-              Invest in commission-free direct <br /> mutual funds
-            </p>
-          </div>
-        </div>
-      </div> */}
-
-      {/* IPO & F&O */}
-      {/* <div className="d-flex justify-content-center" style={{ marginBottom: "5.5rem" }}>
-        <div className="d-flex">
-          <img src="media/images/ipo-acop.svg" style={{ width: "50%" }} alt="IPO" />
-          <div className="ms-4">
-            <h3>IPO</h3>
-            <p style={{ width: "250px", lineHeight: "1.7" }}>
-              Apply to the latest IPOs instantly <br /> via UPI
-            </p>
-          </div>
-        </div>
-        <div style={{ width: "7rem" }}></div>
-        <div className="d-flex">
-          <img src="media/images/fo-acop.svg" style={{ width: "50%" }} alt="F&O" />
-          <div className="ms-4">
-            <h3>Futures & options</h3>
-            <p style={{ width: "250px", lineHeight: "1.7" }}>
-              Hedge and mitigate market risk <br /> through simplified F&O trading
-            </p>
-          </div>
-        </div>
-      </div> */}
+     
 
 {/* Investment Options Header */}
 <h1 className="text-center my-5" style={{ marginTop: "5.5rem", marginBottom: "5.5rem" }}>

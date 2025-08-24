@@ -23,7 +23,7 @@ const Menu = () => {
       try {
     // 1. Call backend logout endpoint to clear the HTTP-only cookie
     await axios.post(
-      "http://localhost:3001/api/logout", 
+      "https://zerodha-clone-fnnn.onrender.com/api/logout", 
       {},
       { 
         withCredentials: true // Necessary for cookies to be sent
@@ -38,13 +38,13 @@ const Menu = () => {
     });
     // 3. Redirect to login page
     setTimeout(() => {
-      window.location.href = "http://localhost:3000/login";
+      window.location.href = "https://zerodha-clone-fnnn.onrender.com/login";
     }, 1000);
     
   } catch (error) {
     console.error("Logout failed:", error);
     // Fallback: Redirect even if API call fails
-    window.location.href = "http://localhost:3000/login";
+    window.location.href = "https://zerodha-clone-fnnn.onrender.com/login";
   }
   };
 

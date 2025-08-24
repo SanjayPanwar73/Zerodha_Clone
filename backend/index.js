@@ -34,9 +34,9 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors({
   origin: [
-    "http://localhost:3000",
-  "http://localhost:3001",
-  "http://localhost:3002"
+    "https://zerodha-clone-frontend-r4c5.onrender.com",
+  "https://zerodha-clone-fnnn.onrender.com",
+  "https://zerodha-clone-dashboard-1388.onrender.com"
   ],
   methods: ["GET", "POST", "OPTIONS"],
   credentials: true,

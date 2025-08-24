@@ -16,7 +16,7 @@ const Home = () => {
 
       try {
       const res = await axios.post(
-        "http://localhost:3001/api/verify-user",
+        "https://zerodha-clone-fnnn.onrender.com/api/verify-user",
         {},
         {
           withCredentials: true, // Send cookies

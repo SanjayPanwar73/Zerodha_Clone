@@ -36,7 +36,7 @@ module.exports.Signup = async (req, res) => {
         email: user.email,
         createdAt: user.createdAt
       },
-      redirectTo: "http://localhost:3002/Dashboard",
+      redirectTo: "https://zerodha-clone-dashboard-1388.onrender.com",
     });
   } catch (error) {
     console.error("Signup Error:", error);
@@ -81,7 +81,7 @@ module.exports.Login = async (req, res) => {
         email: user.email,
         createdAt: user.createdAt
       },
-      redirectTo: "http://localhost:3002/Dashboard",
+      redirectTo: "https://zerodha-clone-dashboard-1388.onrender.com",
     });
   } catch (error) {
     console.error("Login Error:", error);

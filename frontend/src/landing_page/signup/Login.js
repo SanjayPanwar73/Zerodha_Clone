@@ -32,7 +32,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {                                                                //pass email and password to backend
-      const {data} = await axios.post("http://localhost:3001/api/login", {email, password}, {
+      const {data} = await axios.post("https://zerodha-clone-fnnn.onrender.com/api/login", {email, password}, {
         withCredentials: true,
         headers: { "Content-Type": "application/json"}
       });
@@ -65,44 +65,7 @@ const Login = () => {
           investors and traders
         </p>
       </div>
-      {/* <div className="d-flex justify-content-center" style={{marginBottom: "5.5rem"}}>
-        <img src="media/images/account_open.svg" style={{width: "45%", paddingRight: "4rem"}}></img>
-        <div style={{marginLeft: "-1rem"}}>
-          <div className="form_container" style={{paddingTop: "2rem"}}>
-            <h2 className="pb-2" style={{width: "fit-content", marginBottom: "1.5rem", borderBottom: "2px solid #424242"}}>Login Now</h2>
-            <form className="signup-form" onSubmit={handleSubmit}>
-              <div>
-                <label htmlFor="email">Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={email}
-                  placeholder="Enter your email"
-                  onChange={handleOnChange}
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="password">Password</label>
-                <input
-                  type="password"
-                  name="password"
-                  value={password}
-                  placeholder="Enter your password"
-                  onChange={handleOnChange}
-                  required
-                />
-              </div>
-              <button type="submit" className="signup-btn">Submit</button><br></br>
-              <span style={{fontSize: "small"}}>
-                Don't have an account? <Link to={"/signup"}>Signup</Link>
-              </span>
-            </form>
-            <ToastContainer />
-          </div>
-        </div>
-      </div> */}
-
+      
 <div className="row justify-content-center align-items-center mb-5 gap-4">
   {/* Image Column */}
   <div className="col-12 col-md-6 text-center">
@@ -154,41 +117,6 @@ const Login = () => {
 </div>
 
 
-      {/* <h1 className="text-center" style={{marginTop: "5.5rem",marginBottom: "5.5rem"}}>Investment options with Zerodha demat account</h1>
-      <div className="d-flex justify-content-center" style={{marginBottom: "5.5rem"}}>
-        <div className="d-flex">
-            <img src="media/images/stocks-acop.svg" style={{width: "45%"}}></img>
-            <div className="ms-4">
-                <h3>Stocks</h3>
-                <p style={{width: "200px", lineHeight: "1.7"}}>Invest in all exchange-listed <br></br> securities</p>
-            </div>
-        </div>
-        <div style={{width: "9rem"}}></div>
-        <div className="d-flex">
-            <img src="media/images/mf-acop.svg" style={{width: "50%"}}></img>
-            <div className="ms-4">
-                <h3>Mutual funds</h3>
-                <p style={{width: "250px", lineHeight: "1.7"}}>Invest in commission-free direct <br></br> mutual funds</p>
-            </div>
-        </div>
-      </div>
-      <div className="d-flex justify-content-center" style={{marginBottom: "5.5rem"}}>
-        <div className="d-flex">
-            <img src="media/images/ipo-acop.svg" style={{width: "50%"}}></img>
-            <div className="ms-4">
-                <h3>IPO</h3>
-                <p style={{width: "250px", lineHeight: "1.7"}}>Apply to the latest IPOs instantly <br></br> via UPI</p>
-            </div>
-        </div>
-        <div style={{width: "7rem"}}></div>
-        <div className="d-flex" >
-            <img src="media/images/fo-acop.svg" style={{width: "50%"}}></img>
-            <div className="ms-4">
-                <h3>Futures & options</h3>
-                <p style={{width: "250px", lineHeight: "1.7"}}>Hedge and mitigate market risk <br></br> through simplified F&O trading</p>
-            </div>
-        </div>
-      </div> */}
 
       <h1 className="text-center my-5">Investment options with Zerodha demat account</h1>
 
