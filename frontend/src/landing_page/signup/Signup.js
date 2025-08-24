@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import OpenAccount from "../OpenAccount";
-const API = import.meta.env.VITE_API_URL;
 
 function Signup() {
 
