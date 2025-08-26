@@ -2,12 +2,19 @@
 import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+
+const API = import.meta.env.VITE_API_URL;
+
+
 const Orders = () => {
 
   const [allOrders, setAllOrders] = useState([]);
 
   useEffect(() => {
-    axios.get("https://zerodha-clone-fnnn.onrender.com/allorders")
+    axios.get(
+      // "https://zerodha-clone-fnnn.onrender.com/allorders"
+      `${API}/allorders`
+      )
       .then((res) => {
         setAllOrders(res.data);
       })

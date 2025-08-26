@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import OpenAccount from "../OpenAccount";
-
+const VITE_API_URL = process.env.VITE_API_URL || "https://zerodha-clone-fnnn.onrender.com";
 function Signup() {
 
   const [email, setEmail] = useState("");
@@ -33,7 +33,8 @@ function Signup() {
 
     try {
       const { data } = await axios.post(
-        "https://zerodha-clone-fnnn.onrender.com/api/signup",
+        // "https://zerodha-clone-fnnn.onrender.com/api/signup",
+        `${VITE_API_URL}/api/signup`,
         { email, username, password },
         {
           withCredentials: true,

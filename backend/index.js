@@ -15,9 +15,10 @@ const userVerification = require("./middlewares/AuthMiddleware.js");
 
 console.log(typeof userVerification);
 console.log(typeof authRoute);
-const PORT = 3001;
+// const PORT = 3001;
 const URL = process.env.MONGO_URL;
 const app = express();
+const PORT = process.env.PORT || 3001;
 
 
 

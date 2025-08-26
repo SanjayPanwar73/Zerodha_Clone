@@ -6,6 +6,9 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
+const API = import.meta.env.VITE_API_URL;
+
+
 const Home = () => {
   const [username, setUsername] = useState("");
   const [hasWelcomed, setHasWelcomed] = useState(false);
@@ -16,7 +19,9 @@ const Home = () => {
 
       try {
       const res = await axios.post(
-        "https://zerodha-clone-fnnn.onrender.com/api/verify-user",
+        // "https://zerodha-clone-fnnn.onrender.com/api/verify-user"
+        `${API}/api/verify-user`
+        ,
         {},
         {
           withCredentials: true, // Send cookies

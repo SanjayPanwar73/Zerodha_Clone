@@ -4,6 +4,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import OpenAccount from "../OpenAccount";
 
+const VITE_API_URL = process.env.VITE_API_URL || "https://zerodha-clone-fnnn.onrender.com";
 
 
 const Login = () => {
@@ -32,7 +33,11 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {                                                                //pass email and password to backend
-      const {data} = await axios.post("https://zerodha-clone-fnnn.onrender.com/api/login", {email, password}, {
+      const {data} = await axios.post(
+        // "https://zerodha-clone-fnnn.onrender.com/api/login",
+        `${VITE_API_URL}/api/login`,
+         {email, password}, 
+         {
         withCredentials: true,
         headers: { "Content-Type": "application/json"}
       });

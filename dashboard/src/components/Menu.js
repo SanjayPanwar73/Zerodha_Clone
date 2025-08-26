@@ -5,6 +5,8 @@ import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 
+const API = import.meta.env.VITE_API_URL;
+
 
 const Menu = () => {
   const [selectedMenu, setSelectedMenu] = useState(0);
@@ -23,7 +25,9 @@ const Menu = () => {
       try {
     // 1. Call backend logout endpoint to clear the HTTP-only cookie
     await axios.post(
-      "https://zerodha-clone-fnnn.onrender.com/api/logout", 
+      // "https://zerodha-clone-fnnn.onrender.com/api/logout"
+      `${API}/api/logout`
+      , 
       {},
       { 
         withCredentials: true // Necessary for cookies to be sent
@@ -38,13 +42,18 @@ const Menu = () => {
     });
     // 3. Redirect to login page
     setTimeout(() => {
-      window.location.href = "https://zerodha-clone-fnnn.onrender.com/login";
+      window.location.href = 
+      // "https://zerodha-clone-fnnn.onrender.com/login"
+            `${API}/api/login`;
     }, 1000);
     
   } catch (error) {
     console.error("Logout failed:", error);
     // Fallback: Redirect even if API call fails
-    window.location.href = "https://zerodha-clone-fnnn.onrender.com/login";
+    window.location.href = 
+    // "https://zerodha-clone-fnnn.onrender.com/login"
+          `${API}/api/login`
+    ;
   }
   };
 

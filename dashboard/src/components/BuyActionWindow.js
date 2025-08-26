@@ -6,6 +6,9 @@ import axios from "axios";
 import "./BuyActionWindow.css";
 import { toast } from "react-toastify";
 
+const API = import.meta.env.VITE_API_URL;
+
+
 const BuyActionWindow = ({ uid }) => {
 
   const { closeBuyWindow } = useContext(GeneralContext);
@@ -14,7 +17,11 @@ const BuyActionWindow = ({ uid }) => {
   const [stockPrice, setStockPrice] = useState(0.0);
 
   const handleBuyClick = () => {
-    axios.post("https://zerodha-clone-fnnn.onrender.com/newOrder", {
+    axios.post(
+      // "https://zerodha-clone-fnnn.onrender.com/newOrder"
+      `${API}/newOrder`
+      
+      ,{
       name: uid,
       qty: parseInt(stockQuantity),
       price: parseFloat(stockPrice),

@@ -7,17 +7,27 @@ import axios from "axios";
 import "./SellActionWindow.css";
 import { toast } from "react-toastify";
 
+
+const API = import.meta.env.VITE_API_URL;
+
+
 const SellActionWindow = ({uid}) => {
 
   const { closeSellWindow } = useContext(GeneralContext);
 
   const handleSellClick = () => {
 
-  axios.get(`https://zerodha-clone-fnnn.onrender.com/getStock/${uid}`)
+  axios.get(
+    // `https://zerodha-clone-fnnn.onrender.com/getStock/${uid}`
+    `${API}/getStock/${uid}`
+  )
     .then((res) => {
       const data = res.data;
 
-      axios.post("https://zerodha-clone-fnnn.onrender.com/sellOrder", {
+      axios.post(
+        // "https://zerodha-clone-fnnn.onrender.com/sellOrder"
+        `${API}/sellOrder`
+        , {
         ...data,
         mode: "SELL",
       }).then(() => {
