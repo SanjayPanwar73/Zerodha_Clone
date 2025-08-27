@@ -24,7 +24,7 @@ const Menu = () => {
   const handleLogout = async () => {
     try {
       // 1. Call backend logout endpoint to clear the HTTP-only cookie
-      await axios.post(
+      const res = await axios.post(
         `${API}/api/logout`,
         {},
         { withCredentials: true }
@@ -35,14 +35,31 @@ const Menu = () => {
       toast.success("Logged out successfully", {
         position: "bottom-left",
       });
-      // 3. Redirect to frontend login page
+      // 3. Redirect to frontend login page. Prefer backend-provided absolute URL.
+      const redirectTo = res?.data?.redirectTo;
       setTimeout(() => {
-        window.location.href = "/login";
+        if (redirectTo && (redirectTo.startsWith('http://') || redirectTo.startsWith('https://'))) {
+          window.location.href = redirectTo;
+        } else if (redirectTo) {
+          // Relative redirect provided by backend
+          window.location.href = `${window.location.origin}${redirectTo}`;
+        } else {
+          // Fallback: send the user to /login on the current origin
+          window.location.href = "/login";
+        }
       }, 1000);
     } catch (error) {
       console.error("Logout failed:", error);
-      // Fallback: Redirect to frontend login page even if API call fails
-      window.location.href = "/login";
+      // Fallback: if backend returned a redirect URL in the error response, use it
+      const redirectTo = error?.response?.data?.redirectTo;
+      if (redirectTo && (redirectTo.startsWith('http://') || redirectTo.startsWith('https://'))) {
+        window.location.href = redirectTo;
+      } else if (redirectTo) {
+        window.location.href = `${window.location.origin}${redirectTo}`;
+      } else {
+        // Default fallback
+        window.location.href = "/login";
+      }
     }
   };
 
