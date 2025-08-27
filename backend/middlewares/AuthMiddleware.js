@@ -13,10 +13,10 @@ module.exports.userVerification = async (req, res, next) => {
     }
   }
 
-  if (!token) {
+  if (!token || typeof token !== 'string' || token.split('.').length !== 3) {
     return res.status(401).json({ 
       status: false, 
-      message: "No token provided",
+      message: "No or malformed token provided",
       redirectTo: "/login"
     });
   }
@@ -31,9 +31,9 @@ module.exports.userVerification = async (req, res, next) => {
         secure: true,
         sameSite: 'None',
       });
-      return res.status(404).json({ 
+      return res.status(403).json({ 
         status: false, 
-        message: "User not found",
+        message: "Permission denied: User not found",
         redirectTo: "/login"
       });
     }

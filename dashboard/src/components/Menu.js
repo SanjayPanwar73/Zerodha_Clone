@@ -22,39 +22,28 @@ const Menu = () => {
   }
 
   const handleLogout = async () => {
-      try {
-    // 1. Call backend logout endpoint to clear the HTTP-only cookie
-    await axios.post(
-      // "https://zerodha-clone-fnnn.onrender.com/api/logout"
-      `${API}/api/logout`
-      , 
-      {},
-      { 
-        withCredentials: true // Necessary for cookies to be sent
-      }
-    );
-    
-    // 2. Clear any client-side storage (optional cleanup)
-    localStorage.removeItem("token"); // Remove if you were previously using this
-    localStorage.removeItem("userData"); // Remove any other auth-related data
-    toast.success("Logged out successfully", {
-      position: "bottom-left",
-    });
-    // 3. Redirect to login page
-    setTimeout(() => {
-      window.location.href = 
-      // "https://zerodha-clone-fnnn.onrender.com/login"
-            `${API}/api/login`;
-    }, 1000);
-    
-  } catch (error) {
-    console.error("Logout failed:", error);
-    // Fallback: Redirect even if API call fails
-    window.location.href = 
-    // "https://zerodha-clone-fnnn.onrender.com/login"
-          `${API}/api/login`
-    ;
-  }
+    try {
+      // 1. Call backend logout endpoint to clear the HTTP-only cookie
+      await axios.post(
+        `${API}/api/logout`,
+        {},
+        { withCredentials: true }
+      );
+      // 2. Clear any client-side storage (optional cleanup)
+      localStorage.removeItem("token");
+      localStorage.removeItem("userData");
+      toast.success("Logged out successfully", {
+        position: "bottom-left",
+      });
+      // 3. Redirect to frontend login page
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 1000);
+    } catch (error) {
+      console.error("Logout failed:", error);
+      // Fallback: Redirect to frontend login page even if API call fails
+      window.location.href = "/login";
+    }
   };
 
   const menuClass = "menu";
