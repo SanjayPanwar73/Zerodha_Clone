@@ -3,7 +3,7 @@ import axios from 'axios';
 import { VerticalGraph } from "./VerticalGraph";
 // import { holdings } from "../data/data";
 
-const API = process.env.REACT_APP_API_URL || "http://localhost:3002";
+const VITE_API_URL = import.meta.env.VITE_API_URL || "http://localhost:3002";
 
 
 const Holdings = () => {
