@@ -16,6 +16,19 @@ const Home = () => {
 
   useEffect(() => {
     const verifyCookie = async () => {
+      // If token present in URL query (sent from landing frontend), persist it and remove from URL
+      try {
+        const url = new URL(window.location.href);
+        const urlToken = url.searchParams.get('token');
+        if (urlToken) {
+          localStorage.setItem('token', urlToken);
+          url.searchParams.delete('token');
+          window.history.replaceState({}, document.title, url.pathname + url.search);
+        }
+      } catch (e) {
+        // ignore URL parsing errors
+      }
+
       try {
         const token = localStorage.getItem('token');
         const res = await axios.post(

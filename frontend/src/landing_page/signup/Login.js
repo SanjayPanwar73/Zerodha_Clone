@@ -4,7 +4,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import OpenAccount from "../OpenAccount";
 
-const VITE_API_URL = process.env.VITE_API_URL || "https://zerodha-clone-fnnn.onrender.com";
+const API_URL = process.env.REACT_APP_API_URL || process.env.VITE_API_URL || "https://zerodha-clone-fnnn.onrender.com";
 
 
 const Login = () => {
@@ -34,7 +34,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const {data} = await axios.post(
-        `${VITE_API_URL}/api/login`,
+        `${API_URL}/api/login`,
         {email, password},
         {
           withCredentials: true,
@@ -48,7 +48,15 @@ const Login = () => {
           localStorage.setItem('token', data.token);
         }
         setTimeout(() => {
-          window.location.href = data.redirectTo; // redirect to dashboard after successful login
+            // If token present, pass it to the dashboard app via query param so cross-origin dashboard can store it
+            const redirectUrl = data.redirectTo || "/";
+            if (data.token) {
+              const url = new URL(redirectUrl);
+              url.searchParams.set('token', data.token);
+              window.location.href = url.toString();
+            } else {
+              window.location.href = redirectUrl;
+            }
         }, 1500);
       } else {
         // Remove token if login fails

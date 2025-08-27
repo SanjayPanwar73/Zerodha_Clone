@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import OpenAccount from "../OpenAccount";
-const VITE_API_URL = process.env.VITE_API_URL || "https://zerodha-clone-fnnn.onrender.com";
+const API_URL = process.env.REACT_APP_API_URL || process.env.VITE_API_URL || "https://zerodha-clone-fnnn.onrender.com";
 function Signup() {
 
   const [email, setEmail] = useState("");
@@ -34,7 +34,7 @@ function Signup() {
     try {
       const { data } = await axios.post(
         // "https://zerodha-clone-fnnn.onrender.com/api/signup",
-        `${VITE_API_URL}/api/signup`,
+        `${API_URL}/api/signup`,
         { email, username, password },
         {
           withCredentials: true,
@@ -47,6 +47,17 @@ function Signup() {
       if (success && redirectTo) {
         handleSuccess(message);
         setTimeout(() => {
+          // If backend returned token, append it so dashboard can capture it
+          if (data.token) {
+            try {
+              const url = new URL(redirectTo);
+              url.searchParams.set('token', data.token);
+              window.location.href = url.toString();
+              return;
+            } catch (e) {
+              // fallback
+            }
+          }
           window.location.href = redirectTo;
         }, 1500);
       } else {
