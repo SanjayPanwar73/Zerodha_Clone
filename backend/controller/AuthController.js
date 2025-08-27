@@ -96,14 +96,13 @@ module.exports.Logout = (req, res) => {
       httpOnly: true,
       secure: true,
       sameSite: 'None',
-      
     });
-    
+    // Redirect to frontend login page after logout
     return res.status(200).json({ 
       success: true,
-      message: "Logged out successfully" 
+      message: "Logged out successfully",
+      redirectTo: "https://zerodha-clone-frontend-clmm.onrender.com/login" // <-- set your actual frontend login page URL here
     });
-    
   } catch (error) {
     console.error("Logout error:", error);
     return res.status(500).json({ success: false, message: "Logout failed" });
