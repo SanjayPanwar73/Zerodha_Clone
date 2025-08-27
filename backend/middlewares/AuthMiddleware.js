@@ -17,12 +17,12 @@ module.exports.userVerification = async (req, res, next) => {
     return res.status(401).json({ 
       status: false, 
       message: "No token provided",
-      redirectTo: "https://zerodha-clone-dashboard-1388.onrender.com"
+      redirectTo: "/login"
     });
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.TOKEN_KEY);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findById(decoded.id);
 
     if (!user) {
@@ -34,7 +34,7 @@ module.exports.userVerification = async (req, res, next) => {
       return res.status(404).json({ 
         status: false, 
         message: "User not found",
-        redirectTo: "https://zerodha-clone-dashboard-1388.onrender.com"
+        redirectTo: "/login"
       });
     }
     req.user = user;
@@ -47,6 +47,6 @@ module.exports.userVerification = async (req, res, next) => {
       sameSite: 'None',
     });
     console.error("Token verification error:", error);
-    return res.status(403).json({ status: false, message: "Invalid or expired token", redirectTo: "https://zerodha-clone-dashboard-1388.onrender.com" });
+    return res.status(403).json({ status: false, message: "Invalid or expired token", redirectTo: "/login" });
   }
 };

@@ -44,7 +44,7 @@ const Home = () => {
         // Prevent reload loop: only redirect if not already on login page
         if (!window.location.pathname.includes("login")) {
           toast.error("Session expired. Please log in again.", { position: "bottom-left" });
-          navigate("/login");
+          navigate(redirectTo || "/login");
         }
       }
     };
