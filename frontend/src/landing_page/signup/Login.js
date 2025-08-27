@@ -32,28 +32,29 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {                                                                //pass email and password to backend
+    try { //pass email and password to backend
       const {data} = await axios.post(
-        // "https://zerodha-clone-fnnn.onrender.com/api/login",
         `${VITE_API_URL}/api/login`,
-         {email, password}, 
-         {
-        withCredentials: true,
-        headers: { "Content-Type": "application/json"}
-      });
-          
+        {email, password},
+        {
+          withCredentials: true,
+          headers: { "Content-Type": "application/json"}
+        }
+      );
       if (data.success) {
         handleSuccess(data.message);
+        // Save token in localStorage for future authenticated requests
+        if (data.token) {
+          localStorage.setItem('token', data.token);
+        }
         setTimeout(() => {
           window.location.href = data.redirectTo; // redirect to dashboard after successful login
         }, 1500);
       }
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
       handleError("Something went wrong!");
-    } 
-    finally {
+    } finally {
       setEmail("");
       setPassword("");
     }
