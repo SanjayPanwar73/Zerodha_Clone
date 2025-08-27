@@ -38,27 +38,29 @@ const Menu = () => {
       // 3. Redirect to frontend login page. Prefer backend-provided absolute URL.
       const redirectTo = res?.data?.redirectTo;
       setTimeout(() => {
+        const preferred = "https://zerodha-clone-frontend-clmm.onrender.com/login";
         if (redirectTo && (redirectTo.startsWith('http://') || redirectTo.startsWith('https://'))) {
           window.location.href = redirectTo;
         } else if (redirectTo) {
           // Relative redirect provided by backend
           window.location.href = `${window.location.origin}${redirectTo}`;
         } else {
-          // Fallback: send the user to /login on the current origin
-          window.location.href = "/login";
+          // Fallback: redirect to the requested absolute frontend login host
+          window.location.href = preferred;
         }
       }, 1000);
     } catch (error) {
       console.error("Logout failed:", error);
       // Fallback: if backend returned a redirect URL in the error response, use it
       const redirectTo = error?.response?.data?.redirectTo;
+      const preferred = "https://zerodha-clone-frontend-clmm.onrender.com/login";
       if (redirectTo && (redirectTo.startsWith('http://') || redirectTo.startsWith('https://'))) {
         window.location.href = redirectTo;
       } else if (redirectTo) {
         window.location.href = `${window.location.origin}${redirectTo}`;
       } else {
-        // Default fallback
-        window.location.href = "/login";
+        // Default fallback: requested absolute frontend login host
+        window.location.href = preferred;
       }
     }
   };
