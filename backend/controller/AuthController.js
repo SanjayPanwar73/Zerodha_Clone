@@ -30,6 +30,7 @@ module.exports.Signup = async (req, res) => {
     res.status(201).json({
       message: "User signed up successfully",
       success: true,
+      token, // <-- include token in response
       user: {
         id: user._id,
         username: user.username,
