@@ -16,30 +16,27 @@ const Home = () => {
 
   useEffect(() => {
     const verifyCookie = async () => {
-
       try {
-      const res = await axios.post(
-        // "https://zerodha-clone-fnnn.onrender.com/api/verify-user"
-        `${API}/api/verify-user`
-        ,
-        {},
-        {
-          withCredentials: true, // Send cookies
-          headers: {
-            'Content-Type': 'application/json'
+        const token = localStorage.getItem('token');
+        const res = await axios.post(
+          `${API}/api/verify-user`,
+          {},
+          {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: token ? `Bearer ${token}` : undefined
+            }
           }
+        );
+        if (res.data.status && !hasWelcomed) {
+          toast.info(`Welcome to Dashboard!`, {
+            position: "bottom-left",
+            icon: false,
+          });
+          setHasWelcomed(true);
+          setUsername(res.data.username);
         }
-      );
-
-      if (res.data.status && !hasWelcomed) {
-        toast.info(`Welcome to Dashboard!`, {
-          position: "bottom-left",
-          icon: false,
-        });
-        setHasWelcomed(true);
-        setUsername(res.data.username);
-      }
-
       } catch (err) {
         console.error("User verification failed:",  err.response?.data || err.message || err);
         toast.error("User verification failed. Please log in again.", { position: "bottom-left" });
@@ -47,7 +44,6 @@ const Home = () => {
         navigate("/");
       }
     };
-
     verifyCookie();
   }, [hasWelcomed, navigate]);
   
