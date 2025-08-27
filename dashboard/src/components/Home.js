@@ -40,13 +40,11 @@ const Home = () => {
       } catch (err) {
         // Handle backend redirect on token expiry/invalid
         const redirectTo = err.response?.data?.redirectTo;
-        toast.error("User verification failed. Please log in again.", { position: "bottom-left" });
         localStorage.removeItem("token");
-        // Only redirect to login page, not dashboard, to prevent reload loop
-        if (redirectTo && !window.location.pathname.includes("login")) {
-          window.location.href = redirectTo;
-        } else {
-          navigate("/login"); // or your login route
+        // Prevent reload loop: only redirect if not already on login page
+        if (!window.location.pathname.includes("login")) {
+          toast.error("Session expired. Please log in again.", { position: "bottom-left" });
+          navigate("/login");
         }
       }
     };
