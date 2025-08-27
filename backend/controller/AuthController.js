@@ -20,9 +20,10 @@ module.exports.Signup = async (req, res) => {
     const user = await User.create({ email, username, password });
     const token = createSecretToken(user);
 
+    const secureFlag = process.env.NODE_ENV === 'production';
     res.cookie('token', token, {
       httpOnly: true,
-      secure: true,
+      secure: secureFlag,
       sameSite: 'None',
       maxAge: 24 * 60 * 60 * 1000 // 1 day expiration
     });
@@ -66,9 +67,10 @@ module.exports.Login = async (req, res) => {
 
     const token = createSecretToken(user);
 
+     const secureFlag = process.env.NODE_ENV === 'production';
      res.cookie('token', token, {
       httpOnly: true,
-      secure: true,
+      secure: secureFlag,
       sameSite: 'None',
       maxAge: 24 * 60 * 60 * 1000 // 1 day
     });
@@ -94,9 +96,10 @@ module.exports.Login = async (req, res) => {
 module.exports.Logout = (req, res) => {
   try {
     // Clear the HTTP-only cookie
+    const secureFlag = process.env.NODE_ENV === 'production';
     res.clearCookie('token', {
       httpOnly: true,
-      secure: true,
+      secure: secureFlag,
       sameSite: 'None',
     });
     // Redirect to frontend login page after logout

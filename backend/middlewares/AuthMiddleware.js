@@ -14,25 +14,28 @@ module.exports.userVerification = async (req, res, next) => {
   }
 
   if (!token || typeof token !== 'string' || token.split('.').length !== 3) {
-    return res.status(401).json({ 
-      status: false, 
+    return res.status(401).json({
+      status: false,
       message: "No or malformed token provided",
       redirectTo: "/login"
     });
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    // Use same secret used when creating token. Support JWT_SECRET or TOKEN_KEY env var.
+    const secret = process.env.JWT_SECRET || process.env.TOKEN_KEY;
+    const decoded = jwt.verify(token, secret);
     const user = await User.findById(decoded.id);
 
     if (!user) {
+      const secureFlag = process.env.NODE_ENV === 'production';
       res.clearCookie('token', {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'None',
-      });
-      return res.status(403).json({ 
-        status: false, 
+          httpOnly: true,
+          secure: secureFlag,
+          sameSite: 'None',
+        });
+      return res.status(403).json({
+        status: false,
         message: "Permission denied: User not found",
         redirectTo: "/login"
       });
@@ -41,12 +44,14 @@ module.exports.userVerification = async (req, res, next) => {
     next();
   } catch (error) {
     // Token expired or invalid
+    const secureFlag = process.env.NODE_ENV === 'production';
     res.clearCookie('token', {
       httpOnly: true,
-      secure: true,
+      secure: secureFlag,
       sameSite: 'None',
     });
     console.error("Token verification error:", error);
+    // Return 403 for invalid/expired token so frontend can force re-login
     return res.status(403).json({ status: false, message: "Invalid or expired token", redirectTo: "/login" });
   }
 };
