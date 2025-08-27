@@ -42,10 +42,11 @@ const Home = () => {
         const redirectTo = err.response?.data?.redirectTo;
         toast.error("User verification failed. Please log in again.", { position: "bottom-left" });
         localStorage.removeItem("token");
-        if (redirectTo) {
+        // Only redirect to login page, not dashboard, to prevent reload loop
+        if (redirectTo && !window.location.pathname.includes("login")) {
           window.location.href = redirectTo;
         } else {
-          navigate("/");
+          navigate("/login"); // or your login route
         }
       }
     };
