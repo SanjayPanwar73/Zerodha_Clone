@@ -38,10 +38,15 @@ const Home = () => {
           setUsername(res.data.username);
         }
       } catch (err) {
-        console.error("User verification failed:",  err.response?.data || err.message || err);
+        // Handle backend redirect on token expiry/invalid
+        const redirectTo = err.response?.data?.redirectTo;
         toast.error("User verification failed. Please log in again.", { position: "bottom-left" });
         localStorage.removeItem("token");
-        navigate("/");
+        if (redirectTo) {
+          window.location.href = redirectTo;
+        } else {
+          navigate("/");
+        }
       }
     };
     verifyCookie();

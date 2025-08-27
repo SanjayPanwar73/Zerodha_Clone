@@ -32,7 +32,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try { //pass email and password to backend
+    try {
       const {data} = await axios.post(
         `${VITE_API_URL}/api/login`,
         {email, password},
@@ -50,8 +50,12 @@ const Login = () => {
         setTimeout(() => {
           window.location.href = data.redirectTo; // redirect to dashboard after successful login
         }, 1500);
+      } else {
+        // Remove token if login fails
+        localStorage.removeItem('token');
       }
     } catch (error) {
+      localStorage.removeItem('token');
       console.log(error);
       handleError("Something went wrong!");
     } finally {
