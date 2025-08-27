@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 
-const API = import.meta.env.VITE_API_URL;
+const API = process.env.REACT_APP_API_URL;
 
 
 const Menu = () => {

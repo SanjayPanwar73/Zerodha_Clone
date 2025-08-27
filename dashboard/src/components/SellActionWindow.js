@@ -8,7 +8,7 @@ import "./SellActionWindow.css";
 import { toast } from "react-toastify";
 
 
-const API = import.meta.env.VITE_API_URL;
+const API = process.env.REACT_APP_API_URL;
 
 
 const SellActionWindow = ({uid}) => {

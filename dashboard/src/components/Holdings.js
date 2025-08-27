@@ -3,7 +3,7 @@ import axios from 'axios';
 import { VerticalGraph } from "./VerticalGraph";
 // import { holdings } from "../data/data";
 
-const VITE_API_URL = import.meta.env.VITE_API_URL || "http://localhost:3002";
+const API = process.env.REACT_APP_API_URL;
 
 
 const Holdings = () => {
@@ -13,7 +13,7 @@ const Holdings = () => {
   useEffect(() => {
     axios.get(
       // "https://zerodha-clone-fnnn.onrender.com/allholdings"
-      `${VITE_API_URL}/allholdings`
+      `${API}/allholdings`
     )
       .then((res) => {
         setAllHoldings(res.data);
