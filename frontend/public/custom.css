@@ -1,0 +1,8 @@
+/* Styles for public assets */
+.zerodha-logo {
+  height: 60px;
+  max-width: 100%;
+  display: inline-block;
+}
+
+/* optional centering helpers already provided by bootstrap */
