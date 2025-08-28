@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
@@ -12,6 +12,7 @@ const Menu = () => {
   const [selectedMenu, setSelectedMenu] = useState(0);
   const [isProfileDropdown, setIsProfileDropdown] = useState(false);
   const [removeCookie] = useCookies(["token"]);
+  const navigate = useNavigate();
 
   const handleMenuClick = (index) => {
     setSelectedMenu(index);
@@ -35,32 +36,26 @@ const Menu = () => {
       toast.success("Logged out successfully", {
         position: "bottom-left",
       });
-      // 3. Redirect to frontend login page. Prefer backend-provided absolute URL.
+      // 3. Redirect to frontend login route. Prefer backend-provided redirectTo.
       const redirectTo = res?.data?.redirectTo;
       setTimeout(() => {
-        const preferred = "https://zerodha-clone-frontend-clmm.onrender.com/login";
+        // If backend returns an absolute URL, follow it. Otherwise use client-side navigation
         if (redirectTo && (redirectTo.startsWith('http://') || redirectTo.startsWith('https://'))) {
           window.location.href = redirectTo;
-        } else if (redirectTo) {
-          // Relative redirect provided by backend
-          window.location.href = `${window.location.origin}${redirectTo}`;
         } else {
-          // Fallback: redirect to the requested absolute frontend login host
-          window.location.href = preferred;
+          // Use react-router navigation for internal routes (or fallback to '/login')
+          navigate(redirectTo || "/login");
         }
       }, 1000);
     } catch (error) {
       console.error("Logout failed:", error);
       // Fallback: if backend returned a redirect URL in the error response, use it
       const redirectTo = error?.response?.data?.redirectTo;
-      const preferred = "https://zerodha-clone-frontend-clmm.onrender.com/login";
       if (redirectTo && (redirectTo.startsWith('http://') || redirectTo.startsWith('https://'))) {
         window.location.href = redirectTo;
-      } else if (redirectTo) {
-        window.location.href = `${window.location.origin}${redirectTo}`;
       } else {
-        // Default fallback: requested absolute frontend login host
-        window.location.href = preferred;
+        // Prefer client-side navigation for internal routes
+        navigate(redirectTo || "/login");
       }
     }
   };
