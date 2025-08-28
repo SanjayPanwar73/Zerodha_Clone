@@ -41,7 +41,15 @@ const Menu = () => {
       setTimeout(() => {
         // If backend returns an absolute URL, follow it. Otherwise use client-side navigation
         if (redirectTo && (redirectTo.startsWith('http://') || redirectTo.startsWith('https://'))) {
-          window.location.href = redirectTo;
+          try {
+            // Convert absolute path to a hash-based URL so static hosts that don't
+            // rewrite SPA routes will still load index.html and the client router.
+            const u = new URL(redirectTo);
+            const hashPath = u.pathname + u.search + u.hash;
+            window.location.href = `${u.origin}/#${hashPath}`;
+          } catch (e) {
+            window.location.href = redirectTo;
+          }
         } else {
           // Use react-router navigation for internal routes (or fallback to '/login')
           navigate(redirectTo || "/login");
@@ -52,7 +60,13 @@ const Menu = () => {
       // Fallback: if backend returned a redirect URL in the error response, use it
       const redirectTo = error?.response?.data?.redirectTo;
       if (redirectTo && (redirectTo.startsWith('http://') || redirectTo.startsWith('https://'))) {
-        window.location.href = redirectTo;
+        try {
+          const u = new URL(redirectTo);
+          const hashPath = u.pathname + u.search + u.hash;
+          window.location.href = `${u.origin}/#${hashPath}`;
+        } catch (e) {
+          window.location.href = redirectTo;
+        }
       } else {
         // Prefer client-side navigation for internal routes
         navigate(redirectTo || "/login");
