@@ -66,7 +66,7 @@ Render (frontend + backend hosting)
 
 Clone the repository
 
-git clone https://github.com/your-username/Zerodha_Clone.git
+git clone https://github.com/SanjayPanwar73/Zerodha_Clone.git
 cd Zerodha_Clone
 
 
